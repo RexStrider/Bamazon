@@ -1,0 +1,25 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "A back-end application for a store front, using MySQL and Javascript.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RexStrider/Bamazon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RexStrider/Bamazon/issues"
+  },
+  "homepage": "https://github.com/RexStrider/Bamazon#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "inquirer": "^6.2.2",
+    "mysql": "^2.16.0"
+  }
+}
