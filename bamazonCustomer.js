@@ -29,7 +29,6 @@ let displayProducts = () => {
 
         connection.query(`SELECT * FROM products`, (err, res) => {
             if (err) {
-                // console.log(err);
                 return reject(err);
             };
             for (i in res) {
