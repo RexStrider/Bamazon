@@ -87,17 +87,10 @@ let purchaseItems = (id, quantity_purchased, stock) => {
     let connection = connectDB();
 
     connection.query(`UPDATE products SET ? WHERE ?`, [
-        {
-            stock: (stock - quantity_purchased)
-        },
-        {
-            id: id
-        }
+        { stock: (stock - quantity_purchased) },
+        { id: id }
     ], (err, res) => {
         if (err) throw err;
-
-        console.log(`${res.affectedRows} row(s) affected`);
-
         displayPurchase(id, quantity_purchased);
     });
 
@@ -112,13 +105,12 @@ let displayPurchase = (id, quant_purch) => {
 
         let total = res[0].price * quant_purch;
 
-        let product = ``;
+        let product = `${res[0].product}`;
 
         if (quant_purch > 1)
-            if (res[0].product.charAt(res[0].product.length-1) === 's')
-                product = `${res[0].product}es`;
-            else product = `${res[0].product}s`;
-        else product = `${res[0].product}`;
+            if (product.charAt(product.length-1) === 's') product = `${product}es`;
+            else product = `${product}s`;
+        // else product = `${res[0].product}`;
 
         console.log(`Total purchase is $${total} for ${quant_purch} ${product}`);
 
