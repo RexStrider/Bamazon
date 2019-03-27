@@ -16,15 +16,10 @@ let connectDB = () => {
     })
 }
 
-
-
 let displayProducts = () => {
         let connection = connectDB();
-
         connection.query(`SELECT * FROM products`, (err, res) => {
-            if (err) {
-                throw err;
-            }
+            if (err) throw err;
             for (i in res) {
                 console.log(
                     ` id: ${res[i].id} |`,
@@ -40,7 +35,6 @@ let displayProducts = () => {
 
 let displayLowInventory = () => {
     let connection = connectDB();
-
     connection.query(`SELECT * FROM products WHERE stock < 5`, (err, res) => {
         if (err) throw err;
         for (i in res) {
@@ -58,28 +52,33 @@ let displayLowInventory = () => {
 
 let restockItem = (id, quantity) => {
     let connection = connectDB();
-
     connection.query(`SELECT product, stock FROM products WHERE ?`, [{id: id}], (err, res) => {
         if (err) throw err;
-        // console.log(res);
-
         let product = res[0].product;
         let newStock = res[0].stock + parseInt(quantity);
-
-        // console.log(`stock: ${res[0].stock} ${typeof(res[0].stock)}`);
-        // console.log(`quantity: ${quantity} ${typeof(quantity)}`);
-
         connection.query(`UPDATE products SET ? WHERE ?`, [
             { stock: newStock },
             { id: id }
         ], (err, res) => {
             if (err) throw err;
-            // console.log(res);
-
             console.log(`${product} now has ${newStock} in stock`);
             connection.end();
         })
     });
+}
+
+let addNewProduct = (product, department, price, quantity) => {
+    let connection = connectDB();
+    connection.query(`INSERT INTO products (product, department, price, stock) VALUES (?)`,
+    [[ product, department, price, quantity ]],
+    (err, res) => {
+        if (err) throw err;
+        console.log(`${product} has been entered into the database`);
+        console.log(`price: $${price}`);
+        console.log(`stock: ${stock}`);
+        console.log(`department: ${department}`);
+        connection.end();
+    })
 }
 
 let startMenu = () => {
@@ -91,7 +90,7 @@ let startMenu = () => {
     inquirer.prompt([
         {
             type: `list`,
-            message: `List of menu options:`,
+            message: `List of Menu Options:`,
             choices: [
                 `View Products for Sale`,
                 `View Low Inventory`,
@@ -129,18 +128,36 @@ let startMenu = () => {
                     }
                 ])
                 .then(res => {
-                    // if (err) throw err;
-                    console.log(res);
-
-                    // console.log(`restocking `)
                     restockItem(res.item_id, res.quantity);
-                })
-                // .catch(err => {
-                //     console.log(err);
-                // });
+                });
                 break;
             case `Add New Product`:
             //   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
+                inquirer.prompt([
+                    {
+                        type: `input`,
+                        message: `Enter the name of the product:`,
+                        name: `product`
+                    },
+                    {
+                        type: `input`,
+                        message: `Enter the name of the department:`,
+                        name: `department`
+                    },
+                    {
+                        type: `input`,
+                        message: `Enter the price of the product:`,
+                        name: `price`
+                    },
+                    {
+                        type: `input`,
+                        message: `Enter the amount currently in stock:`,
+                        name: `stock`
+                    }
+                ])
+                .then(res => {
+                    addNewProduct(res.product, res.department, res.price, res.stock);
+                });
                 break;
             default:
                 console.log(`How did you get this message... WHAT DID YOU DO!?`);
