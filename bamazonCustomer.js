@@ -79,7 +79,7 @@ let promptPurchase = () => {
         });
     })
     .catch ( err => {
-        throw err;
+        console.log(err);
     });
 }
 
