@@ -9,7 +9,7 @@ let keys = require(`./key.js`);
 let connectDB = () => {
     return mysql.createConnection({
         host: `localhost`,
-        port: 8090,
+        port: 3306,
         user: `root`,
         password: keys.sql.pass,
         database: `bamazon_db`
@@ -19,12 +19,10 @@ let connectDB = () => {
 
 
 let displayProducts = () => {
-    // return new Promise ((resolve, reject) => {
         let connection = connectDB();
 
         connection.query(`SELECT * FROM products`, (err, res) => {
             if (err) {
-                // return reject(err);
                 throw err;
             }
             for (i in res) {
@@ -36,10 +34,8 @@ let displayProducts = () => {
                     `department: ${res[i].department}\n`
                 );
             }
-            connection.end( err => { return reject(err) });
-            // resolve();
+            connection.end();
         });
-    // })
 }
 
 let displayLowInventory = () => {
@@ -56,25 +52,29 @@ let displayLowInventory = () => {
                 `department: ${res[i].department}\n`
             );
         }
+        connection.end();
     })
 }
 
 let restockItem = (id, quantity) => {
     let connection = connectDB();
 
-    connection.query(`SELECT product, stock WHERE ?`, [{id: id}], (err, res) => {
+    connection.query(`SELECT product, stock FROM products WHERE ?`, [{id: id}], (err, res) => {
         if (err) throw err;
-        console.log(res);
+        // console.log(res);
 
-        let product = res.product;
-        let newStock = parseInteger(res.stock) + parseInteger(quantity);
+        let product = res[0].product;
+        let newStock = res[0].stock + parseInt(quantity);
+
+        // console.log(`stock: ${res[0].stock} ${typeof(res[0].stock)}`);
+        // console.log(`quantity: ${quantity} ${typeof(quantity)}`);
 
         connection.query(`UPDATE products SET ? WHERE ?`, [
             { stock: newStock },
             { id: id }
         ], (err, res) => {
             if (err) throw err;
-            console.log(res);
+            // console.log(res);
 
             console.log(`${product} now has ${newStock} in stock`);
             connection.end();
@@ -101,9 +101,9 @@ let startMenu = () => {
             name: `option`
         }
     ])
-    .then( (err, res) => {
-        if (err) throw err;
-        console.log(res);
+    .then(res => {
+        // if (err) throw err;
+        console.log(res.option);
 
         switch(res.option) {
             case `View Products for Sale`:
@@ -128,13 +128,16 @@ let startMenu = () => {
                         name: `quantity`
                     }
                 ])
-                .then((err, res) => {
-                    if (err) throw err;
+                .then(res => {
+                    // if (err) throw err;
                     console.log(res);
 
                     // console.log(`restocking `)
                     restockItem(res.item_id, res.quantity);
                 })
+                // .catch(err => {
+                //     console.log(err);
+                // });
                 break;
             case `Add New Product`:
             //   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
@@ -142,6 +145,9 @@ let startMenu = () => {
             default:
                 console.log(`How did you get this message... WHAT DID YOU DO!?`);
         }
+    })
+    .catch(err => {
+        console.log(err);
     });
 }
 
