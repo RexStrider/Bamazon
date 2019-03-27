@@ -59,8 +59,27 @@ let displayLowInventory = () => {
     })
 }
 
-let restockItem = () => {
-    
+let restockItem = (id, quantity) => {
+    let connection = connectDB();
+
+    connection.query(`SELECT product, stock WHERE ?`, [{id: id}], (err, res) => {
+        if (err) throw err;
+        console.log(res);
+
+        let product = res.product;
+        let newStock = parseInteger(res.stock) + parseInteger(quantity);
+
+        connection.query(`UPDATE products SET ? WHERE ?`, [
+            { stock: newStock },
+            { id: id }
+        ], (err, res) => {
+            if (err) throw err;
+            console.log(res);
+
+            console.log(`${product} now has ${newStock} in stock`);
+            connection.end();
+        })
+    });
 }
 
 let startMenu = () => {
