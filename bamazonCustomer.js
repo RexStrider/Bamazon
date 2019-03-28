@@ -1,13 +1,13 @@
 require(`dotenv`).config();
 
-let mysql = require(`mysql`);
+const mysql = require(`mysql`);
 
-let inquirer = require(`inquirer`);
+const inquirer = require(`inquirer`);
 
-let keys = require(`./key.js`)
+const keys = require(`./key.js`)
 
 // connect to database
-let connectDB = () => {
+const connectDB = () => {
     return mysql.createConnection({
         host: `localhost`,
         port: 3306,
@@ -63,13 +63,13 @@ let promptPurchase = () => {
 
         let connection = connectDB();
         
-        connection.query(`SELECT stock FROM products WHERE id=?`, [res.item_id], (err, res_sql) => {
+        connection.query(`SELECT stock, price, sales FROM products WHERE id=?`, [res.item_id], (err, res_sql) => {
             if (err) throw err;
-
+            console.log(res_sql);
             if (res_sql[0].stock >= res.quantity) {
                 console.log(`stock is available`);
                 // purchase quantity and update database
-                purchaseItems(res.item_id, res.quantity, res_sql[0].stock);
+                purchaseItems(res.item_id, res.quantity, res_sql[0].stock, res_sql[0].price, res_sql[0].sales);
             }
             else {
                 console.log(`stock is not available`);
@@ -83,14 +83,16 @@ let promptPurchase = () => {
     });
 }
 
-let purchaseItems = (id, quantity_purchased, stock) => {
+let purchaseItems = (id, quantity_purchased, stock, price, sales) => {
     let connection = connectDB();
 
-    connection.query(`UPDATE products SET ? WHERE ?`, [
-        { stock: (stock - quantity_purchased) },
+    connection.query(`UPDATE products SET ?, ? WHERE ?`, [
+        { stock: stock - quantity_purchased },
+        { sales: price * quantity_purchased + sales},
         { id: id }
     ], (err, res) => {
         if (err) throw err;
+        // console.log(res);
         displayPurchase(id, quantity_purchased);
     });
 
@@ -113,7 +115,6 @@ let displayPurchase = (id, quant_purch) => {
         // else product = `${res[0].product}`;
 
         console.log(`Total purchase is $${total} for ${quant_purch} ${product}`);
-
         connection.end();
     });
 }
