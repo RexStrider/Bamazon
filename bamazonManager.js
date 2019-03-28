@@ -77,8 +77,44 @@ let addNewProduct = (product, department, price, quantity) => {
         console.log(`price: $${price}`);
         console.log(`stock: ${quantity}`);
         console.log(`department: ${department}`);
+
+        isNewDepartment(department);
+
         connection.end();
     })
+}
+
+let isNewDepartment = (department) => {
+    let connection = connectDB();
+    connection.query(`SELECT COUNT(*) FROM departments WHERE ?`,
+    [{department_name: department}],
+    (err, res) => {
+        if (err) throw err;
+        if (res[0][`COUNT(*)`] < 1) createNewDepartment(department);
+        connection.end();
+    })
+}
+
+let createNewDepartment = (department) => {
+    inquirer.prompt([
+        {
+            type: `input`,
+            message: `The deparment ${department} does not currently exist in the database\n`
+                 + `  Please enter the overhead price for the department ${department}:`,
+            name: `overhead`
+        }
+    ])
+    .then(res => {
+        let connection = connectDB();
+        let overHeadCosts = parseFloat(res.overhead);
+        connection.query(`INSERT INTO departments (department_name, over_head_costs) VALUES (?)`,
+        [[department, overHeadCosts]],
+        (err, res) =>{
+            if (err) throw err;
+            console.log(`inserted department ${department} with an over head cost of ${overHeadCosts}`);
+            connection.end();
+        });
+    });
 }
 
 let startMenu = () => {
@@ -169,3 +205,6 @@ let startMenu = () => {
 }
 
 startMenu();
+
+// console.log(isNewDepartment(`Grabitall`));
+// console.log(isNewDepartment(`Technology`));
