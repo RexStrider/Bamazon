@@ -1,19 +1,19 @@
 require(`dotenv`).config();
 
-let mysql = require(`mysql`);
+const mysql = require(`mysql`);
 
-let inquirer = require(`inquirer`);
+const inquirer = require(`inquirer`);
 
-let keys = require(`./key.js`);
+const keys = require(`./key.js`);
 
-let connectDB = () => {
+const connectDB = () => {
     return mysql.createConnection({
         host: `localhost`,
         port: 3306,
         user: `root`,
         password: keys.sql.pass,
         database: `bamazon_db`
-    })
+    });
 }
 
 let displayProducts = () => {
@@ -69,8 +69,8 @@ let restockItem = (id, quantity) => {
 
 let addNewProduct = (product, department, price, quantity) => {
     let connection = connectDB();
-    connection.query(`INSERT INTO products (product, department, price, stock) VALUES (?)`,
-    [[ product, department, price, quantity ]],
+    connection.query(`INSERT INTO products (product, department, price, stock, sales) VALUES (?)`,
+    [[ product, department, price, quantity, 0 ]],
     (err, res) => {
         if (err) throw err;
         console.log(`${product} has been entered into the database`);
