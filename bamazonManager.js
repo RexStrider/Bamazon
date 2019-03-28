@@ -75,7 +75,7 @@ let addNewProduct = (product, department, price, quantity) => {
         if (err) throw err;
         console.log(`${product} has been entered into the database`);
         console.log(`price: $${price}`);
-        console.log(`stock: ${stock}`);
+        console.log(`stock: ${quantity}`);
         console.log(`department: ${department}`);
         connection.end();
     })
@@ -160,7 +160,7 @@ let startMenu = () => {
                 });
                 break;
             default:
-                console.log(`How did you get this message... WHAT DID YOU DO!?`);
+                console.log(`Uh oh... the default switch case has been activated. This shouldn't be possible...`);
         }
     })
     .catch(err => {
