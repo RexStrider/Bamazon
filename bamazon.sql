@@ -8,6 +8,7 @@ CREATE TABLE products (
     department VARCHAR(30),
     price DOUBLE(10, 2),
     stock INTEGER(10),
+    sales DOUBLE(10, 2),
     PRIMARY KEY(id)
 );
 
@@ -18,17 +19,17 @@ CREATE TABLE departments (
     PRIMARY KEY (department_id)
 );
 
-INSERT INTO products (product, department, price, stock)
-VALUES  ("seal plushie", "Toys", 4.5, 50),
-		("SNES", "Games", 100, 20),
-        ("guitar", "Music", 500.99, 5),
-        ("I-Phone Plus", "Technology", 250, 35),
-        ("book", "Library", 10, 100),
-        ("Refurbished Laptop", "Technology", 625, 2),
-        ("Leprachaun", "Fantasy", 9999, 1),
-        ("rubber band", "Office", 0.05, 2413),
-        ("Airbook", "Technology", 1000, 12),
-        ("Super Mario World", "Games", 20, 9);
+INSERT INTO products (product, department, price, stock, sales)
+VALUES  ("seal plushie", "Toys", 4.5, 50, 0),
+		("SNES", "Games", 100, 20, 0),
+        ("guitar", "Music", 500.99, 5, 0),
+        ("I-Phone Plus", "Technology", 250, 35, 0),
+        ("book", "Library", 10, 100, 0),
+        ("Refurbished Laptop", "Technology", 625, 2, 0),
+        ("Leprachaun", "Fantasy", 9999, 1, 0),
+        ("rubber band", "Office", 0.05, 2413, 0),
+        ("Airbook", "Technology", 1000, 12, 0),
+        ("Super Mario World", "Games", 20, 9, 0);
 
 INSERT INTO departments (department_name, over_head_costs)
 VALUES  ("Toys", 1000),
