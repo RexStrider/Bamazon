@@ -50,9 +50,9 @@ A back-end application for a store front, using MySQL and Javascript.
 
  * One last thing, you will need to set up a .env file. This is referenced in all of the scripts and will contain the password for MySQL. Without the file the scripts will not function as intended.
     
-    * To set up the file, create a file with the name '.env'
+    * To set up the file, create a file with the name '.env' within the main directory of the Bamazon application
 
-    * add the following text to the file
+    * Then add the following text to the file
 
     ```javascript
     SQL_PASS=your-pass-word-here
