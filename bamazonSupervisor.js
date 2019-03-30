@@ -56,6 +56,33 @@ let displayProductSalesByDepartment = () => {
     })
 }
 
+let createNewDepartment = () => {
+    inquirer.prompt([
+        {
+            type: `input`,
+            message: `Enter the name of the department`,
+            name: `department`
+        },
+        {
+            type: `input`,
+            message: `Please enter the over head cost:`,
+            name: `cost`
+        }
+    ])
+    .then(res => {
+        let connection = connectDB();
+        let department = res.department;
+        let overHeadCosts = parseFloat(res.cost);
+        connection.query(`INSERT INTO departments (department_name, over_head_costs) VALUES (?)`,
+        [[department, overHeadCosts]],
+        (err, res) =>{
+            if (err) throw err;
+            console.log(`inserted department ${department} with an over head cost of ${overHeadCosts}`);
+            connection.end();
+        });
+    });
+}
+
 let startMenu = () => {
     inquirer.prompt([
         {
