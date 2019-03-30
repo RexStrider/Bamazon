@@ -40,4 +40,4 @@ VALUES  ("Toys", 10),
         ("Office", 5.01);
 
 SELECT * FROM products;
-SELECT * FROM departments;
+-- SELECT * FROM departments;
