@@ -32,12 +32,18 @@ VALUES  ("seal plushie", "Toys", 4.5, 50, 0),
         ("Super Mario World", "Games", 20, 9, 0);
 
 INSERT INTO departments (department_name, over_head_costs)
-VALUES  ("Toys", 1000),
-        ("Games", 2000),
+VALUES  ("Toys", 10),
+        ("Games", 20),
         ("Music", 500.50),
-        ("Technology", 1505.05),
-        ("Fantasy", 52.22),
-        ("Office", 5050.01);
+        ("Technology", 150.05),
+        ("Fantasy", 5020.22),
+        ("Office", 5.01);
 
--- SELECT * FROM products;
--- SELECT * FROM departments;
+SELECT * FROM products;
+SELECT * FROM departments;
+
+SELECT department_id, department_name, over_head_costs, sales
+FROM departments
+LEFT JOIN products
+ON departments.department_name=products.department
+GROUP BY department_name;
