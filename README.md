@@ -41,6 +41,7 @@ A back-end application for a store front, using MySQL and Javascript.
 
     * In this case you can try the following  command
     
+    
     ```
     mysql -u root -p < bamazon.sql
     ```
@@ -64,6 +65,7 @@ A back-end application for a store front, using MySQL and Javascript.
 
 
     * If you did not set up a password, that's ok. You will still need to set up this file. Simply add the following text instead
+
 
     ```javascript
     SQL_PASS=
