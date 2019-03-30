@@ -44,7 +44,7 @@ A back-end application for a store front, using MySQL and Javascript.
     
     * The difference is you are setting the user to 'root' and you will be prompted to enter your password
 
- * Don't remember your password? I'm afraid you may have to uninstall and then re-install MySQL. At least it should be easier installing the software a second time.
+ * Didn't remember your password? I'm afraid you may have to uninstall and then re-install MySQL. At least it should be easier installing the software a second time.
 
  * As an alternative, you can try to set up MySQL workbench and run the script 'bamazon.sql' using the GUI.
 
