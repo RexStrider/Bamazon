@@ -78,4 +78,30 @@ A back-end application for a store front, using MySQL and Javascript.
 
  * Below are some screenshots of the scripts being run
 
- 
+ ![alt text][customer01]
+ ![alt text][customer02]
+
+ ![alt text][manager01]
+ ![alt text][manager02]
+ ![alt text][manager03]
+ ![alt text][manager04]
+ ![alt text][manager05]
+ ![alt text][manager06]
+
+ ![alt text][supervisor01]
+ ![alt text][supervisor02]
+ ![alt text][supervisor03]
+
+[customer01]: ./images/customer01.PNG "Purchasing a product"
+[customer02]: ./images/customer02.PNG "Database is updated after purchasing a product"
+
+[manager01]: ./images/manager01.PNG "Viewing the product list"
+[manager02]: ./images/manager02.PNG "Viewing the products that have low inventory"
+[manager03]: ./images/manager03.PNG "Adding to the inventory of a product"
+[manager04]: ./images/manager04.PNG "Database is updated after adding to the inventory of a product"
+[manager05]: ./images/manager05.PNG "Add a new product to the inventory"
+[manager06]: ./images/manager06.PNG "Database is updated after adding a new product to the inventory"
+
+[supervisor01]: ./images/supervisor01.PNG "View product sales by department"
+[supervisor02]: ./images/supervisor02.PNG "Create a new department"
+[supervisor03]: ./images/supervisor03.PNG "Database is updated after creating a new department"
