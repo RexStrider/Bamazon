@@ -55,7 +55,7 @@ A back-end application for a store front, using MySQL and Javascript.
     * Then add the following text to the file
 
     ```javascript
-    SQL_PASS=your-pass-word-here
+    SQL_PASS=your-password-here
     ```
 
     * If you did not set up a password, that's ok. You will still need to set up this file. Simply add the following text instead
