@@ -16,11 +16,13 @@ A back-end application for a store front, using MySQL and Javascript.
     2. navigate to the directory of the cloned Bamazon application
     
     3. type in either of the following commands into the command line
+
     ```
     npm install
     
     npm i
     ```
+
 
  * You will also have to set up the database. This can be done at the command line by typing in the following command
     
@@ -28,6 +30,7 @@ A back-end application for a store front, using MySQL and Javascript.
     mysql < bamazon.sql
     ```
     
+
     * You are effectively telling your OS to feed in the script into the MySQL application. This should seed the intial database for Bamazon.
 
  * If you find yourself being denied access to MySQL, chances are you set up a password for your database. The error might look something like
@@ -42,6 +45,7 @@ A back-end application for a store front, using MySQL and Javascript.
     mysql -u root -p < bamazon.sql
     ```
     
+
     * The difference is you are setting the user to 'root' and you will be prompted to enter your password
 
  * Didn't remember your password? I'm afraid you may have to uninstall and then re-install MySQL. At least it should be easier installing the software a second time.
@@ -58,11 +62,13 @@ A back-end application for a store front, using MySQL and Javascript.
     SQL_PASS=your-password-here
     ```
 
+
     * If you did not set up a password, that's ok. You will still need to set up this file. Simply add the following text instead
 
     ```javascript
     SQL_PASS=
     ```
+
 
     * The scripts will need a variable to reference, even if nothing is being stored in that variable. Otherwise you might recieve errors when running the scripts.
 
@@ -78,22 +84,65 @@ A back-end application for a store front, using MySQL and Javascript.
  node bamazonSupervisor.js
  ```
 
+
  * When the scripts run, they should prompt you for the correct input, and update the databases apporpriately
 
  * Below are some screenshots of the scripts being run
 
+### Screenshots
+
+ * Purchasing a product
+
  ![alt text][customer01]
+
+
+ * Database is updated after purchasing a product 
+
  ![alt text][customer02]
 
+
+ * Viewing the product list
+
  ![alt text][manager01]
+ 
+
+ * Viewing the products that have low inventory
+
  ![alt text][manager02]
+
+
+ * Adding to the inventory of a product
+
  ![alt text][manager03]
+
+
+ * Database is updated after adding to the inventory of a product
+
  ![alt text][manager04]
+
+
+ * Add a new product to the inventory
+
  ![alt text][manager05]
+
+
+ * Database is updated after adding a new product to the inventory
+
  ![alt text][manager06]
 
+
+ * View product sales by department
+
  ![alt text][supervisor01]
+
+
+ * Create a new department
+
  ![alt text][supervisor02]
+
+
+ * Database is updated after creating a new department
+
  ![alt text][supervisor03]
 
 [customer01]: ./images/customer01.PNG "Purchasing a product"
