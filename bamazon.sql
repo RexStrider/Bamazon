@@ -41,9 +41,3 @@ VALUES  ("Toys", 10),
 
 SELECT * FROM products;
 SELECT * FROM departments;
-
-SELECT department_id, department_name, over_head_costs, sales
-FROM departments
-LEFT JOIN products
-ON departments.department_name=products.department
-GROUP BY department_name;
