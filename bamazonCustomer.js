@@ -65,7 +65,6 @@ let promptPurchase = () => {
         
         connection.query(`SELECT stock, price, sales FROM products WHERE id=?`, [res.item_id], (err, res_sql) => {
             if (err) throw err;
-            console.log(res_sql);
             if (res_sql[0].stock >= res.quantity) {
                 console.log(`stock is available`);
                 // purchase quantity and update database
@@ -92,7 +91,6 @@ let purchaseItems = (id, quantity_purchased, stock, price, sales) => {
         { id: id }
     ], (err, res) => {
         if (err) throw err;
-        // console.log(res);
         displayPurchase(id, quantity_purchased);
     });
 
@@ -112,7 +110,6 @@ let displayPurchase = (id, quant_purch) => {
         if (quant_purch > 1)
             if (product.charAt(product.length-1) === 's') product = `${product}es`;
             else product = `${product}s`;
-        // else product = `${res[0].product}`;
 
         console.log(`Total purchase is $${total} for ${quant_purch} ${product}`);
         connection.end();
