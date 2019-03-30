@@ -101,7 +101,7 @@ let startMenu = () => {
                 createNewDepartment();
                 break;
             default:
-                console.log(`what happened?`);
+                console.log(`default switch case activated... buy why though?`);
         }
     })
     .catch(err => {
