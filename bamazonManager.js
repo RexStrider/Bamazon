@@ -78,43 +78,8 @@ let addNewProduct = (product, department, price, quantity) => {
         console.log(`stock: ${quantity}`);
         console.log(`department: ${department}`);
 
-        isNewDepartment(department);
-
         connection.end();
     })
-}
-
-let isNewDepartment = (department) => {
-    let connection = connectDB();
-    connection.query(`SELECT COUNT(*) FROM departments WHERE ?`,
-    [{department_name: department}],
-    (err, res) => {
-        if (err) throw err;
-        if (res[0][`COUNT(*)`] < 1) createNewDepartment(department);
-        connection.end();
-    })
-}
-
-let createNewDepartment = (department) => {
-    inquirer.prompt([
-        {
-            type: `input`,
-            message: `The deparment ${department} does not currently exist in the database\n`
-                 + `  Please enter the overhead price for the department ${department}:`,
-            name: `overhead`
-        }
-    ])
-    .then(res => {
-        let connection = connectDB();
-        let overHeadCosts = parseFloat(res.overhead);
-        connection.query(`INSERT INTO departments (department_name, over_head_costs) VALUES (?)`,
-        [[department, overHeadCosts]],
-        (err, res) =>{
-            if (err) throw err;
-            console.log(`inserted department ${department} with an over head cost of ${overHeadCosts}`);
-            connection.end();
-        });
-    });
 }
 
 let startMenu = () => {
@@ -137,9 +102,6 @@ let startMenu = () => {
         }
     ])
     .then(res => {
-        // if (err) throw err;
-        console.log(res.option);
-
         switch(res.option) {
             case `View Products for Sale`:
             //   * If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
@@ -169,31 +131,45 @@ let startMenu = () => {
                 break;
             case `Add New Product`:
             //   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
-                inquirer.prompt([
-                    {
-                        type: `input`,
-                        message: `Enter the name of the product:`,
-                        name: `product`
-                    },
-                    {
-                        type: `input`,
-                        message: `Enter the name of the department:`,
-                        name: `department`
-                    },
-                    {
-                        type: `input`,
-                        message: `Enter the price of the product:`,
-                        name: `price`
-                    },
-                    {
-                        type: `input`,
-                        message: `Enter the amount currently in stock:`,
-                        name: `stock`
+                let connection = connectDB();
+
+                connection.query(`SELECT department_name FROM departments`, (err, res) => {
+                    if (err) throw err;
+
+                    let dep=[];
+                    for (i in res) {
+                        dep.push(res[i].department_name);
                     }
-                ])
-                .then(res => {
-                    addNewProduct(res.product, res.department, res.price, res.stock);
-                });
+
+                    connection.end();
+
+                    inquirer.prompt([
+                        {
+                            type: `input`,
+                            message: `Enter the name of the product:`,
+                            name: `product`
+                        },
+                        {
+                            type: `list`,
+                            message: `Choose a department for this product:`,
+                            choices: dep,
+                            name: `department`
+                        },
+                        {
+                            type: `input`,
+                            message: `Enter the price of the product:`,
+                            name: `price`
+                        },
+                        {
+                            type: `input`,
+                            message: `Enter the amount currently in stock:`,
+                            name: `stock`
+                        }
+                    ])
+                    .then(res => {
+                        addNewProduct(res.product, res.department, res.price, res.stock);
+                    });
+                })
                 break;
             default:
                 console.log(`Uh oh... the default switch case has been activated. This shouldn't be possible...`);
@@ -205,6 +181,3 @@ let startMenu = () => {
 }
 
 startMenu();
-
-// console.log(isNewDepartment(`Grabitall`));
-// console.log(isNewDepartment(`Technology`));
