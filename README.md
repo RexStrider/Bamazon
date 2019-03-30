@@ -30,7 +30,13 @@ A back-end application for a store front, using MySQL and Javascript.
     
     * You are effectively telling your OS to feed in the script into the MySQL application. This should seed the intial database for Bamazon.
 
- * If you find yourself being denied access to MySQL, chances are you set up a password for your database. The error might look something like 'ERROR 1045: Access denied for user'. In this case you can try the following  command
+ * If you find yourself being denied access to MySQL, chances are you set up a password for your database. The error might look something like
+ 
+    ```
+    ERROR 1045: Access denied for user
+    ```
+
+    * In this case you can try the following  command
     
     ```
     mysql -u root -p < bamazon.sql
@@ -50,14 +56,12 @@ A back-end application for a store front, using MySQL and Javascript.
 
     ```javascript
     SQL_PASS=your-pass-word-here
-
     ```
 
     * If you did not set up a password, that's ok. You will still need to set up this file. Simply add the following text instead
 
     ```javascript
     SQL_PASS=
-
     ```
 
     * The scripts will need a variable to reference, even if nothing is being stored in that variable. Otherwise you might recieve errors when running the scripts.
