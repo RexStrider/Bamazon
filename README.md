@@ -7,7 +7,7 @@ A back-end application for a store front, using MySQL and Javascript.
 
  * You will also need to install MySQL onto your computer. You can find MySQL at the following link [https://www.mysql.com/downloads/]
 
- * It may be worth your to set up MySQL workbench, although this is not requried. If you have set up your class paths correctly you should have access to MySQL from the command line. Still, some people prefer to work with a GUI, and if you are one of those folks, you can find MySQL workbench at the following link [https://www.mysql.com/products/workbench/]
+ * It may be worth your time to set up MySQL workbench, although this is not requried. If you have set up your class paths correctly you should have access to MySQL from the command line. Still, some people prefer to work with a GUI, and if you are one of those folks, you can find MySQL workbench at the following link [https://www.mysql.com/products/workbench/]
 
  * To use this application, you will need to set up the node modules. This can be done by performing the following steps
     
